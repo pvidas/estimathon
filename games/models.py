@@ -4,8 +4,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-DECIMAL_MAX_DIGITS = 2000
-DECIMAL_PLACES = 1000
+DECIMAL_MAX_DIGITS = 65
+DECIMAL_PLACES = 20
 
 
 # TODO Admin action that generates a pdf with all questions.
