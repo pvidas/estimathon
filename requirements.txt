@@ -1,0 +1,8 @@
+asgiref==3.4.1
+beautifulsoup4==4.10.0
+certifi==2020.6.20
+Django==4.0
+django-bootstrap5==21.3
+mysqlclient==2.1.0
+soupsieve==2.3.1
+sqlparse==0.4.2

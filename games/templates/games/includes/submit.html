@@ -1,0 +1,23 @@
+
+{% load django_bootstrap5 %}
+
+{% if submit.n_submissions_left == 0 %}
+  <p>You have used up all submissions.</p>
+{% else %}
+  <form action="{% url submit.form_action.url submit.form_action.args %}" method="post" novalidate>
+    {% csrf_token %}
+    {% bootstrap_form submit.form %}
+    <div class="container">
+      <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+        </div>
+      </div>
+    </div>
+    <p>
+      {% bootstrap_button button_type="submit" content="Submit" %}
+      <span class="align-middle px-3">Attempts remaining: {{ submit.n_submissions_left }}</span>
+    </p>
+  </form>
+{% endif %}

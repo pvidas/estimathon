@@ -1,0 +1,41 @@
+{% load games_extras %}
+
+<div class="table-responsive text-center">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Rank</th>
+        <th scope="col" class="text-start">Team</th>
+        {% for i in scoreboard.question_positions %}
+          <th scope="col">{{ i }}</th>
+        {% endfor %}
+        <th scope="col">Score</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for team in scoreboard.teams %}
+        <tr{% if team.highlight %} class="table-info"{% endif %}>
+          <td>{{ team.rank }}</td>
+          <td class="text-start">{{ team.team_name }}</td>
+          {% for result in team.results %}
+          <td>
+            <div class="row">
+              <div class="col">
+                <span>{% if result.score == 0 and result.tries == 0 %}-{% elif result.score == 0 %}✗{% else %}{{ result.score|stringformat:"g"|nicer_exp }}{% endif %}</span>
+              </div>
+            </div>
+            {% if result.tries != 0 %}
+            <div class="row">
+              <div class="col">
+                <span class="text-muted small">{{ result.tries }} tr{{ result.tries|pluralize:"y,ies" }}</span>
+              </div>
+            </div>
+            {% endif %}
+          </td>
+          {% endfor %}
+          <td>{{ team.total_score|stringformat:"g"|nicer_exp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>

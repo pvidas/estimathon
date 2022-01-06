@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}{{ game.full_name }}{% endblock %}
+
+{% block content %}
+
+<div class="container-lg justify-content-between d-flex p-3">
+    <div>
+    <h1 class="mb-3">{{ game.full_name }}</h1>
+    <h3 class="mb-3">Team: {{ team_name }}</h3>
+    </div>
+    <ul class="list-group p-3">
+      <li class="list-group-item text-end">Start time: <small>{{ game.start_time|date:"Y-m-d g:H:s" }}</small></li>
+      <li class="list-group-item text-end">End time: <small>{{ game.end_time|date:"Y-m-d g:H:s" }}</small></li>
+    </ul>
+</div>
+
+{% if game.is_running %}
+<div class="container-lg p-3">
+  {% include "./includes/submit.html" %}
+</div>
+{% endif %}
+
+{% if game.has_started %}
+<div class="container-lg p-3">
+  <h2 class="mb-3">Submissions</h2>
+  {% include "./includes/submission_log.html" %}
+</div>
+{% endif %}
+
+<div class="container-lg p-3">
+  <h2 class="mb-3">Scoreboard</h2>
+  {% include "./includes/scoreboard.html" %}
+</div>
+
+{% endblock %}

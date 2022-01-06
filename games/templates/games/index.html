@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}Estimathon{% endblock %}
+
+{% block content %}
+
+<div class="container-lg p-3">
+  <h1 class="mb-5">Your games</h1>
+
+  {% if teams %}
+  <div class="list-group list-group-flush">
+  {% for team in teams %}
+  <a href={{ team.game.get_absolute_url }} class="list-group-item list-group-item-action justify-content-between d-flex py-3">
+    <span class="fw-bold">{{ team.game.full_name }}</span>
+    <span>Team: {{ team.team_name }}</span>
+  </a>
+  {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-muted"><em>You are not registered for any games.</em></p>
+  {% endif %}
+</div>
+
+{% endblock %}

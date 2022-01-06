@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}Register for {{ game.full_name }}{% endblock %}
+
+{% block content %}
+
+<div class="container p-3">
+  <h1 class="mb-5">{{ game.full_name }}</h1>
+
+  {% if game.is_open_for_registration %}
+  <form action="{% url 'games:register' game.slug %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% bootstrap_button button_type="submit" content="Register" %}
+  </form>
+  {% else %}
+  <p>Registration for this game is closed.</p>
+  {% endif %}
+</div>
+
+{% endblock %}
