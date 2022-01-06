@@ -8,6 +8,8 @@ DECIMAL_MAX_DIGITS = 65
 DECIMAL_PLACES = 20
 
 
+# TODO https://docs.djangoproject.com/en/4.0/ref/databases/#mysql-sql-mode
+
 # TODO Admin action that generates a pdf with all questions.
 # TODO Admin action that changes question positions to 1,2,3...
 class Game(models.Model):
@@ -45,7 +47,7 @@ class Question(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='questions')
     statement = models.TextField()
     answer = models.DecimalField(max_digits=DECIMAL_MAX_DIGITS, decimal_places=DECIMAL_PLACES)
-    position = models.PositiveSmallIntegerField()
+    position = models.PositiveSmallIntegerField()  # TODO Fill this automatically.
 
     class Meta:
         ordering = ['position']
@@ -53,6 +55,7 @@ class Question(models.Model):
     def __str__(self):
         return f'{self.position}. {self.statement}'
 
+    # TODO This triggers on saving an already existing model as well...
     def validate_unique(self, exclude=None):
         super().validate_unique(exclude=exclude)
         if not exclude or ('game' not in exclude and 'position' not in exclude):
@@ -98,6 +101,9 @@ class Submission(models.Model):
         if not exclude or 'interval_lower_bound' not in exclude:
             if self.interval_lower_bound <= 0:
                 errors['interval_lower_bound'] = 'Lower bound must be positive.'
+        if not exclude or 'interval_upper_bound' not in exclude:
+            if self.interval_upper_bound <= 0:
+                errors['interval_upper_bound'] = 'Upper bound must be positive.'
         
         if errors:
             raise ValidationError(errors)
