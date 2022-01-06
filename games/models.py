@@ -123,7 +123,7 @@ class Submission(models.Model):
 
     @property
     def interval_score(self):
-        return round(self.interval_upper_bound / self.interval_lower_bound)
+        return self.interval_upper_bound // self.interval_lower_bound
     
     @property
     def submitted_during_game(self):
