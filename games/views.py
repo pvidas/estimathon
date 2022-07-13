@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.shortcuts import redirect, render, get_object_or_404
 
 from .forms import TeamRegistrationForm, SubmissionForm
-from .models import Game
+from .models import Game, Question
 from .utils import is_registered, get_submit_context, get_submissions_context, get_scoreboard_context
 
 
@@ -69,7 +69,9 @@ def dashboard(request, game_slug):
             except ValidationError as e:
                 form.add_error(field=None, error=e)
     else:
-        form = None
+        form = SubmissionForm()
+        form.fields['question'].queryset = Question.objects.filter(game=game)
+
     context = {
         'game': game,
         'team_name': team.team_name,

@@ -11,7 +11,7 @@ def get_submit_context(team, form, form_action):
             submission_time__lt=team.game.end_time).count()
     return {
         'n_submissions_left': max(0, team.game.submission_limit - n_submissions),
-        'form': form if form else SubmissionForm(),
+        'form': form,
         'form_action': form_action,
     }
 
