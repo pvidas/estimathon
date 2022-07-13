@@ -70,7 +70,7 @@ def dashboard(request, game_slug):
                 form.add_error(field=None, error=e)
     else:
         form = SubmissionForm()
-        form.fields['question'].queryset = Question.objects.filter(game=game)
+    form.fields['question'].queryset = Question.objects.filter(game=game)
 
     context = {
         'game': game,
